@@ -28,6 +28,8 @@ class Board extends React.Component {
     render() {
         return (
             <div>
+                {/* for (let i = 0; i < 3; i++) */}
+                
                 <div className="board-row">
                     {this.renderSquare(0)}
                     {this.renderSquare(1)}
@@ -68,13 +70,15 @@ class Game extends React.Component {
         console.log(whoTurn)
         const current = history[this.state.stepNumber];
         const winner = calculateWinner(current.squares);
+        const isChosen = this.state.stepNumber
         const moves = history.map((step, move) => {
             const desc = move ?
                 'Перейти к ходу #' + move + whoTurn[move]:
                 'К началу игры';
+            const className = (isChosen===move) ? 'b-chsn' : '';    
             return (
                 <li key={move}>
-                    <button onClick={() => this.jumpTo(move)}>{desc}</button>
+                    <button className={className} onClick={() => this.jumpTo(move)}>{desc}</button>
                 </li>
             );
         });
@@ -121,7 +125,7 @@ class Game extends React.Component {
             }]),
             stepNumber: history.length,
             xIsNext: !this.state.xIsNext,
-            turn: turn
+            turn: turn,
         });
         // console.log(this.state.turn)
         // console.log(this.state.history)
